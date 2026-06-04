@@ -1,0 +1,49 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useState } from "react";
+import GameCanvas from "./components/GameCanvas";
+
+export default function App() {
+  const [gameState, setGameState] = useState<"menu" | "endless" | "goals">(
+    "menu",
+  );
+
+  if (gameState === "menu") {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center gap-12 bg-[#020617] text-white">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-[0.2em] text-sky-400 drop-shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+          ENDLESS SWARM
+        </h1>
+        <div className="flex flex-col gap-6 w-full max-w-xs">
+          <button
+            onClick={() => setGameState("endless")}
+            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+          >
+            ENDLESS
+          </button>
+          <button
+            onClick={() => setGameState("goals")}
+            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+          >
+            GOALS
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <main className="w-full h-full relative bg-[#020617]">
+      <GameCanvas mode={gameState} />
+      <button
+        onClick={() => setGameState("menu")}
+        className="absolute top-8 left-8 text-white/50 hover:text-white text-sm font-bold tracking-widest transition-colors z-20"
+      >
+        &#8592; MENU
+      </button>
+    </main>
+  );
+}

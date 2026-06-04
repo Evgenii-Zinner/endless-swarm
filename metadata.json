@@ -1,0 +1,6 @@
+{
+  "name": "Endless Swarm",
+  "description": "An endless hole.io-style game where you swallow smaller objects to grow infinitely, with procedural generation and no timer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
