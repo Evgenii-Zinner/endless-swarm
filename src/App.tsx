@@ -20,13 +20,13 @@ export default function App() {
         <div className="flex flex-col gap-6 w-full max-w-xs">
           <button
             onClick={() => setGameState("endless")}
-            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
           >
             ENDLESS
           </button>
           <button
             onClick={() => setGameState("goals")}
-            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+            className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
           >
             GOALS
           </button>
@@ -40,7 +40,7 @@ export default function App() {
       <GameCanvas mode={gameState} />
       <button
         onClick={() => setGameState("menu")}
-        className="absolute top-8 left-8 text-white/50 hover:text-white text-sm font-bold tracking-widest transition-colors z-20"
+        className="absolute top-8 left-8 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] rounded text-sm font-bold tracking-widest transition-colors z-20"
       >
         &#8592; MENU
       </button>
