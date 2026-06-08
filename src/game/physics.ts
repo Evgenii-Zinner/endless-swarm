@@ -44,14 +44,14 @@ export const updatePhysics = (
     if (keys["ArrowLeft"] || keys["a"] || keys["A"]) kdx -= 1;
     if (keys["ArrowRight"] || keys["d"] || keys["D"]) kdx += 1;
 
-    const kmag = Math.hypot(kdx, kdy);
+    const kmag = Math.sqrt(kdx * kdx + kdy * kdy);
     if (kmag > 0) {
       moveDX = kdx / kmag;
       moveDY = kdy / kmag;
     }
   }
 
-  const dirMag = Math.hypot(moveDX, moveDY);
+  const dirMag = Math.sqrt(moveDX * moveDX + moveDY * moveDY);
   const mag = Math.min(dirMag, 1);
 
   const accelScreen = 0.6;
@@ -69,7 +69,7 @@ export const updatePhysics = (
   player.vx *= Math.pow(friction, timeScale);
   player.vy *= Math.pow(friction, timeScale);
 
-  const currentSpeed = Math.hypot(player.vx, player.vy);
+  const currentSpeed = Math.sqrt(player.vx * player.vx + player.vy * player.vy);
   if (currentSpeed > maxSpeedWorld) {
     player.vx = (player.vx / currentSpeed) * maxSpeedWorld;
     player.vy = (player.vy / currentSpeed) * maxSpeedWorld;
@@ -89,10 +89,14 @@ export const updatePhysics = (
 
     if (!obj.falling) {
       obj.radius += (obj.originalRadius - obj.radius) * 0.1 * timeScale;
-      const d = Math.hypot(obj.x - player.x, obj.y - player.y);
+      const dx = obj.x - player.x;
+      const dy = obj.y - player.y;
+      const dSq = dx * dx + dy * dy;
+      const threshold = player.radius - obj.radius * 0.2;
       if (
         obj.radius < player.radius &&
-        d < player.radius - obj.radius * 0.2
+        threshold > 0 &&
+        dSq < threshold * threshold
       ) {
         obj.falling = true;
       }
@@ -101,7 +105,7 @@ export const updatePhysics = (
     if (obj.falling) {
       const dX = player.x - obj.x;
       const dY = player.y - obj.y;
-      const d = Math.hypot(dX, dY);
+      const d = Math.sqrt(dX * dX + dY * dY);
 
       if (d > 0) {
         const pullSpeed =
@@ -127,7 +131,7 @@ export const updatePhysics = (
   // Cleanup eaten and too-far objects
   const viewHWidth = width / 2 / state.cameraScale;
   const viewHHeight = (height * 0.7) / state.cameraScale;
-  const viewRadius = Math.hypot(viewHWidth, viewHHeight);
+  const viewRadius = Math.sqrt(viewHWidth * viewHWidth + viewHHeight * viewHHeight);
 
   state.objects = objects.filter((obj) => {
     if (obj.eaten) return false;
@@ -148,8 +152,11 @@ export const updatePhysics = (
       if (obj.originalRadius < player.radius * 0.012) {
         return false;
       }
-      const d = Math.hypot(obj.x - player.x, obj.y - player.y);
-      return d < viewRadius * 4;
+      const dx = obj.x - player.x;
+      const dy = obj.y - player.y;
+      const dSq = dx * dx + dy * dy;
+      const threshold = viewRadius * 4;
+      return dSq < threshold * threshold;
     }
     return true;
   });
