@@ -74,7 +74,7 @@ export const renderGame = (
   state: GameState,
   width: number,
   height: number,
-  lastTime: number
+  lastTime: number,
 ) => {
   const { player, objects, joystick } = state;
 
@@ -120,12 +120,14 @@ export const renderGame = (
     const randAngleOffset = pRng() * Math.PI * 2;
     const speedMultiplier = 0.5 + pRng() * 1.5;
 
-    const t = ((lastTime / 1000) * 0.25 * speedMultiplier + randRadiusFactor) % 1.0;
+    const t =
+      ((lastTime / 1000) * 0.25 * speedMultiplier + randRadiusFactor) % 1.0;
     const minR = pr * 0.95;
     const maxR = pr * 1.7;
     const r = maxR - t * (maxR - minR);
 
-    const orbitalAngle = randAngleOffset - (lastTime / 1000) * 1.5 * speedMultiplier - t * 4.5;
+    const orbitalAngle =
+      randAngleOffset - (lastTime / 1000) * 1.5 * speedMultiplier - t * 4.5;
     const pX = Math.cos(orbitalAngle) * r;
     const pY = Math.sin(orbitalAngle) * r;
 
@@ -196,14 +198,21 @@ export const renderGame = (
       const rng = mulberry32(obj.seed);
 
       if (obj.celestialType === "dust") drawDust(ctx, objDrawRadius);
-      else if (obj.celestialType === "asteroid") drawAsteroid(ctx, objDrawRadius, obj, rng, state.cameraScale);
-      else if (obj.celestialType === "planet") drawPlanet(ctx, objDrawRadius, obj);
+      else if (obj.celestialType === "asteroid")
+        drawAsteroid(ctx, objDrawRadius, obj, rng, state.cameraScale);
+      else if (obj.celestialType === "planet")
+        drawPlanet(ctx, objDrawRadius, obj);
       else if (obj.celestialType === "star") drawStar(ctx, objDrawRadius, obj);
-      else if (obj.celestialType === "system") drawSystem(ctx, objDrawRadius, obj, rng, state.cameraScale, lastTime);
-      else if (obj.celestialType === "galaxy") drawGalaxy(ctx, objDrawRadius, obj, rng, lastTime, mulberry32);
-      else if (obj.celestialType === "pulsar") drawPulsar(ctx, objDrawRadius, obj, lastTime);
-      else if (obj.celestialType === "nebula") drawNebula(ctx, objDrawRadius, obj, rng);
-      else if (obj.celestialType === "darkhole") drawDarkhole(ctx, objDrawRadius, obj);
+      else if (obj.celestialType === "system")
+        drawSystem(ctx, objDrawRadius, obj, rng, state.cameraScale, lastTime);
+      else if (obj.celestialType === "galaxy")
+        drawGalaxy(ctx, objDrawRadius, obj, rng, lastTime, mulberry32);
+      else if (obj.celestialType === "pulsar")
+        drawPulsar(ctx, objDrawRadius, obj, lastTime);
+      else if (obj.celestialType === "nebula")
+        drawNebula(ctx, objDrawRadius, obj, rng);
+      else if (obj.celestialType === "darkhole")
+        drawDarkhole(ctx, objDrawRadius, obj);
 
       ctx.restore();
     }

@@ -6,7 +6,7 @@ export const updatePhysics = (
   state: GameState,
   timeScale: number,
   width: number,
-  height: number
+  height: number,
 ) => {
   const { player, objects, joystick, keys } = state;
 
@@ -131,7 +131,9 @@ export const updatePhysics = (
   // Cleanup eaten and too-far objects
   const viewHWidth = width / 2 / state.cameraScale;
   const viewHHeight = (height * 0.7) / state.cameraScale;
-  const viewRadius = Math.sqrt(viewHWidth * viewHWidth + viewHHeight * viewHHeight);
+  const viewRadius = Math.sqrt(
+    viewHWidth * viewHWidth + viewHHeight * viewHHeight,
+  );
 
   state.objects = objects.filter((obj) => {
     if (obj.eaten) return false;
@@ -183,10 +185,10 @@ export const updatePhysics = (
 };
 
 export const updateTimers = (state: GameState, timeScale: number) => {
-    if (state.showRebirthFlash > 0) {
-        state.showRebirthFlash -= timeScale;
-    }
-    if (state.levelUpTextTimer > 0) {
-        state.levelUpTextTimer -= timeScale;
-    }
+  if (state.showRebirthFlash > 0) {
+    state.showRebirthFlash -= timeScale;
+  }
+  if (state.levelUpTextTimer > 0) {
+    state.levelUpTextTimer -= timeScale;
+  }
 };

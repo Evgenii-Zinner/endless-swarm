@@ -3,7 +3,7 @@ import { GameState } from "../game/types";
 import { spawnEndlessPattern, initGoalsStage } from "../game/spawning";
 import { updatePhysics, updateTimers } from "../game/physics";
 import { renderGame } from "../game/renderer";
-import { formatMass } from "../game/utils";
+import { formatMass, safeGetItem } from "../game/utils";
 
 export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,9 +30,7 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
     level: 0,
     levelUpTextTimer: 0,
     mode,
-    goalsStage: parseInt(
-      localStorage.getItem("endlessSwarm_goalsStage") || "0",
-    ),
+    goalsStage: parseInt(safeGetItem("endlessSwarm_goalsStage", "0")),
     goalsWon: false,
     winTimer: 0,
     winWord: "",
@@ -142,7 +140,9 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
 
       // Update DOM UI
       if (massDisplayRef.current) {
-        massDisplayRef.current.innerText = formatMass(state.player.targetRadius ** 2);
+        massDisplayRef.current.innerText = formatMass(
+          state.player.targetRadius ** 2,
+        );
       }
       if (
         tierDisplayRef.current &&

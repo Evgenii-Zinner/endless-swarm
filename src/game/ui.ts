@@ -4,7 +4,7 @@ export const drawGoalPointer = (
   ctx: CanvasRenderingContext2D,
   state: GameState,
   width: number,
-  height: number
+  height: number,
 ) => {
   if (state.mode !== "goals" || state.goalsWon) return;
 
@@ -54,7 +54,7 @@ export const drawOffscreenIndicators = (
   ctx: CanvasRenderingContext2D,
   state: GameState,
   width: number,
-  height: number
+  height: number,
 ) => {
   if (state.mode !== "endless" && state.mode !== "goals") return;
 
@@ -117,7 +117,8 @@ export const drawOffscreenIndicators = (
           : Infinity;
       const ty =
         dy !== 0
-          ? ((dy > 0 ? height - borderPadding : borderPadding) - height * 0.7) / dy
+          ? ((dy > 0 ? height - borderPadding : borderPadding) - height * 0.7) /
+            dy
           : Infinity;
       const t = Math.min(tx, ty);
 
@@ -152,7 +153,7 @@ export const drawOverlayText = (
   ctx: CanvasRenderingContext2D,
   state: GameState,
   width: number,
-  height: number
+  height: number,
 ) => {
   if (state.showRebirthFlash > 0) {
     ctx.save();
@@ -191,7 +192,7 @@ export const drawWinScreen = (
   ctx: CanvasRenderingContext2D,
   state: GameState,
   width: number,
-  height: number
+  height: number,
 ) => {
   if (state.mode !== "goals" || !state.goalsWon) return;
 
@@ -241,7 +242,7 @@ export const drawWinScreen = (
 
 export const drawJoystick = (
   ctx: CanvasRenderingContext2D,
-  joystick: GameState["joystick"]
+  joystick: GameState["joystick"],
 ) => {
   if (!joystick.active) return;
 

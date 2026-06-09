@@ -7,3 +7,5 @@ coverage/
 .env*
 !.env.example
 .firebase/
+grid_screenshot.html
+screenshots/

@@ -105,3 +105,23 @@ export function mulberry32(a: number) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+export const safeGetItem = (
+  key: string,
+  defaultValue: string = "0",
+): string => {
+  try {
+    return localStorage.getItem(key) || defaultValue;
+  } catch (e) {
+    console.warn("localStorage is not accessible:", e);
+    return defaultValue;
+  }
+};
+
+export const safeSetItem = (key: string, value: string): void => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn("localStorage is not accessible:", e);
+  }
+};

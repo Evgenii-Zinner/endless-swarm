@@ -1,5 +1,10 @@
 import { CelestialType, GameObject, GameState } from "./types";
-import { getEndlessCelestialType, getCelestialType, mulberry32 } from "./utils";
+import {
+  getEndlessCelestialType,
+  getCelestialType,
+  mulberry32,
+  safeSetItem,
+} from "./utils";
 
 export const createObj = (
   px: number,
@@ -28,7 +33,7 @@ export const spawnEndlessPattern = (
   state: GameState,
   width: number,
   height: number,
-  allowInsideView = false
+  allowInsideView = false,
 ) => {
   const viewHWidth = width / 2 / state.cameraScale;
   const viewHHeight = (height * 0.7) / state.cameraScale;
@@ -52,10 +57,7 @@ export const spawnEndlessPattern = (
   }
 
   const safeMin = Math.max(state.player.targetRadius * 2.5, minDistance);
-  const safeMax = Math.max(
-    safeMin + state.player.targetRadius,
-    maxDistance,
-  );
+  const safeMax = Math.max(safeMin + state.player.targetRadius, maxDistance);
   const distance = safeMin + Math.random() * (safeMax - safeMin);
 
   const cx = state.player.x + Math.cos(angle) * distance;
@@ -72,8 +74,7 @@ export const spawnEndlessPattern = (
 
   if (patternType === 0) {
     const count = 6 + Math.floor(Math.random() * 12);
-    const ringRadius =
-      baseObjRadius * 2 + Math.random() * baseObjRadius * 4;
+    const ringRadius = baseObjRadius * 2 + Math.random() * baseObjRadius * 4;
     for (let i = 0; i < count; i++) {
       const a = (i / count) * Math.PI * 2;
       const r = baseObjRadius;
@@ -187,10 +188,7 @@ export const initGoalsStage = (state: GameState) => {
   state.player.radius = 20;
   state.player.targetRadius = 20;
 
-  localStorage.setItem(
-    "endlessSwarm_goalsStage",
-    state.goalsStage.toString(),
-  );
+  safeSetItem("endlessSwarm_goalsStage", state.goalsStage.toString());
   const levelSeed = 1337 + state.goalsStage * 9991;
   const rng = mulberry32(levelSeed);
 
@@ -280,14 +278,7 @@ export const initGoalsStage = (state: GameState) => {
       const size = 5 + sizeRng * maxObjRadius;
       const cType = getCelestialType(size);
       state.objects.push(
-        createObj(
-          cx + x,
-          cy + y,
-          size,
-          baseColor + (x + y) * 0.01,
-          cType,
-          rng,
-        ),
+        createObj(cx + x, cy + y, size, baseColor + (x + y) * 0.01, cType, rng),
       );
     }
   }

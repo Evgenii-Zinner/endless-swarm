@@ -2,7 +2,7 @@ import { GameObject } from "./types";
 
 export const drawDust = (
   ctx: CanvasRenderingContext2D,
-  objDrawRadius: number
+  objDrawRadius: number,
 ) => {
   ctx.beginPath();
   ctx.arc(0, 0, objDrawRadius, 0, Math.PI * 2);
@@ -15,7 +15,7 @@ export const drawAsteroid = (
   objDrawRadius: number,
   obj: GameObject,
   rng: () => number,
-  cameraScale: number
+  cameraScale: number,
 ) => {
   ctx.beginPath();
   const pCount = 7 + Math.floor(rng() * 5);
@@ -36,7 +36,7 @@ export const drawAsteroid = (
 export const drawPlanet = (
   ctx: CanvasRenderingContext2D,
   objDrawRadius: number,
-  obj: GameObject
+  obj: GameObject,
 ) => {
   const grad = ctx.createLinearGradient(
     -objDrawRadius,
@@ -71,7 +71,7 @@ export const drawPlanet = (
 export const drawStar = (
   ctx: CanvasRenderingContext2D,
   objDrawRadius: number,
-  obj: GameObject
+  obj: GameObject,
 ) => {
   const grad = ctx.createRadialGradient(
     0,
@@ -96,7 +96,7 @@ export const drawSystem = (
   obj: GameObject,
   rng: () => number,
   cameraScale: number,
-  lastTime: number
+  lastTime: number,
 ) => {
   const sgrad = ctx.createRadialGradient(
     0,
@@ -144,21 +144,14 @@ export const drawGalaxy = (
   obj: GameObject,
   rng: () => number,
   lastTime: number,
-  mulberry32: (seed: number) => () => number
+  mulberry32: (seed: number) => () => number,
 ) => {
   const arms = 2 + Math.floor(rng() * 3);
   const spinRate = rng() > 0.5 ? 1 : -1;
   const rot = rng() * Math.PI * 2 + (lastTime / 3000) * spinRate;
   ctx.rotate(rot);
 
-  const galGrad = ctx.createRadialGradient(
-    0,
-    0,
-    0,
-    0,
-    0,
-    objDrawRadius * 0.3,
-  );
+  const galGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, objDrawRadius * 0.3);
   galGrad.addColorStop(0, "#ffffff");
   galGrad.addColorStop(
     0.4,
@@ -214,7 +207,7 @@ export const drawPulsar = (
   ctx: CanvasRenderingContext2D,
   objDrawRadius: number,
   obj: GameObject,
-  lastTime: number
+  lastTime: number,
 ) => {
   const grad = ctx.createRadialGradient(
     0,
@@ -239,22 +232,12 @@ export const drawPulsar = (
   ctx.save();
   ctx.rotate(jetAngle);
 
-  const coneGradRight = ctx.createLinearGradient(
-    0,
-    0,
-    objDrawRadius * 2.5,
-    0,
-  );
+  const coneGradRight = ctx.createLinearGradient(0, 0, objDrawRadius * 2.5, 0);
   coneGradRight.addColorStop(0, "rgba(186, 230, 253, 0.08)");
   coneGradRight.addColorStop(0.4, "rgba(96, 165, 250, 0.03)");
   coneGradRight.addColorStop(1, "rgba(0, 0, 0, 0)");
 
-  const coneGradLeft = ctx.createLinearGradient(
-    0,
-    0,
-    -objDrawRadius * 2.5,
-    0,
-  );
+  const coneGradLeft = ctx.createLinearGradient(0, 0, -objDrawRadius * 2.5, 0);
   coneGradLeft.addColorStop(0, "rgba(186, 230, 253, 0.08)");
   coneGradLeft.addColorStop(0.4, "rgba(96, 165, 250, 0.03)");
   coneGradLeft.addColorStop(1, "rgba(0, 0, 0, 0)");
@@ -326,7 +309,7 @@ export const drawNebula = (
   ctx: CanvasRenderingContext2D,
   objDrawRadius: number,
   obj: GameObject,
-  rng: () => number
+  rng: () => number,
 ) => {
   for (let i = 0; i < 4; i++) {
     const blobX = (rng() - 0.5) * objDrawRadius * 0.8;
@@ -367,7 +350,7 @@ export const drawNebula = (
 export const drawDarkhole = (
   ctx: CanvasRenderingContext2D,
   objDrawRadius: number,
-  obj: GameObject
+  obj: GameObject,
 ) => {
   const accretionR = objDrawRadius * 1.6;
   const diskGrad = ctx.createRadialGradient(
