@@ -30,8 +30,8 @@ export const updatePhysics = (
   const milestone = Math.pow(2, level);
   state.targetCameraScale = 3 / milestone;
   state.cameraScale +=
-    (state.targetCameraScale - state.cameraScale) * 0.05 * timeScale;
-  player.radius += (player.targetRadius - player.radius) * 0.05 * timeScale;
+    (state.targetCameraScale - state.cameraScale) * (1 - Math.pow(0.95, timeScale));
+  player.radius += (player.targetRadius - player.radius) * (1 - Math.pow(0.95, timeScale));
 
   let moveDX = joystick.dirX;
   let moveDY = joystick.dirY;
@@ -88,7 +88,7 @@ export const updatePhysics = (
     const obj = objects[i];
 
     if (!obj.falling) {
-      obj.radius += (obj.originalRadius - obj.radius) * 0.1 * timeScale;
+      obj.radius += (obj.originalRadius - obj.radius) * (1 - Math.pow(0.9, timeScale));
       const dx = obj.x - player.x;
       const dy = obj.y - player.y;
       const dSq = dx * dx + dy * dy;
