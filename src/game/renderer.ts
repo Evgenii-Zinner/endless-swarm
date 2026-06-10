@@ -181,9 +181,15 @@ export const renderGame = (
     ctx.rotate(obj.angle);
 
     const totalDrawEchoes = obj.falling ? 3 : 1;
-    const baseAlpha = obj.falling
+    const isEdible = obj.originalRadius < player.radius;
+    let baseAlpha = obj.falling
       ? Math.max(0, obj.radius / obj.originalRadius)
       : 1.0;
+
+    // Non-edible objects are drawn ghosted so players know they can't eat them yet.
+    if (!isEdible) {
+      baseAlpha *= 0.4;
+    }
 
     for (let echoIdx = 0; echoIdx < totalDrawEchoes; echoIdx++) {
       ctx.save();
