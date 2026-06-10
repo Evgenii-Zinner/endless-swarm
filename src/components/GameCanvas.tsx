@@ -185,7 +185,6 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
       <canvas
         ref={canvasRef}
         role="application"
-        aria-label="Game canvas"
         className="block w-full h-full touch-none"
       />
 
