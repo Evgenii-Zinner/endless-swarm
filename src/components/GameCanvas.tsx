@@ -182,10 +182,18 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
 
   return (
     <div className="relative w-full h-full">
-      <canvas ref={canvasRef} className="block w-full h-full touch-none" />
+      <canvas
+        ref={canvasRef}
+        role="application"
+        aria-label="Game canvas"
+        className="block w-full h-full touch-none"
+      />
 
       {/* HUD overlay */}
-      <div className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+      >
         <div className="flex items-baseline gap-2 text-white font-mono text-xl font-bold tracking-widest drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">
           <span className="text-white/40 text-[10px] tracking-[0.15em] font-sans font-black pr-1">
             MASS
@@ -203,7 +211,10 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
       </div>
 
       {/* Bottom HUD bar */}
-      <div className="pointer-events-none absolute bottom-8 left-8 right-8 flex items-end justify-between font-mono">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-8 left-8 right-8 flex items-end justify-between font-mono"
+      >
         {/* Left Side: Era */}
         <div className="flex flex-col items-start bg-slate-950/20 backdrop-blur-[2px] p-2 px-3 rounded border border-white/5">
           <span className="text-white/30 text-[9px] font-sans font-extrabold tracking-[0.2em] mb-0.5">
