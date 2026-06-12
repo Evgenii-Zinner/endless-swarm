@@ -31,6 +31,17 @@ export default function App() {
             GOALS
           </button>
         </div>
+
+        <div className="mt-8 flex flex-col items-center gap-3 text-white/50 text-sm font-medium tracking-wide">
+          <p>CONTROLS</p>
+          <div className="flex gap-4 items-center">
+            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">WASD</span>
+            <span>or</span>
+            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">ARROWS</span>
+            <span>or</span>
+            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">DRAG</span>
+          </div>
+        </div>
       </div>
     );
   }
@@ -40,9 +51,10 @@ export default function App() {
       <GameCanvas mode={gameState} />
       <button
         onClick={() => setGameState("menu")}
+        aria-label="Return to menu"
         className="absolute top-8 left-8 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] rounded text-sm font-bold tracking-widest transition-colors z-20"
       >
-        &#8592; MENU
+        <span aria-hidden="true">&#8592;</span> MENU
       </button>
     </main>
   );
