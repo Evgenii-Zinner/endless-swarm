@@ -10,7 +10,7 @@ export const drawGoalPointer = (
 
   const dx = 0 - state.player.x;
   const dy = 0 - state.player.y;
-  const distToCenter = Math.hypot(dx, dy);
+  const distToCenter = Math.sqrt(dx * dx + dy * dy);
 
   if (distToCenter > state.zoneRadius) {
     const cx = width / 2;
@@ -86,7 +86,7 @@ export const drawOffscreenIndicators = (
       ) {
         const dX = obj.x - state.player.x;
         const dY = obj.y - state.player.y;
-        const dist = Math.hypot(dX, dY);
+        const dist = Math.sqrt(dX * dX + dY * dY);
 
         const screenX = width / 2 + dX * state.cameraScale;
         const screenY = height * 0.7 + dY * state.cameraScale;
@@ -105,7 +105,7 @@ export const drawOffscreenIndicators = (
 
     const rx = screenX - width / 2;
     const ry = screenY - height * 0.7;
-    const dist = Math.hypot(rx, ry);
+    const dist = Math.sqrt(rx * rx + ry * ry);
 
     if (dist > 0) {
       const dx = rx / dist;

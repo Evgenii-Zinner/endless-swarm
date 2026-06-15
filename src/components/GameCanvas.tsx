@@ -79,7 +79,7 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
 
       const dx = j.knobX - j.baseX;
       const dy = j.knobY - j.baseY;
-      const dist = Math.hypot(dx, dy);
+      const dist = Math.sqrt(dx * dx + dy * dy);
       const maxDist = 50;
 
       if (dist > maxDist) {
