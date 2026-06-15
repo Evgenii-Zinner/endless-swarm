@@ -37,7 +37,7 @@ export const spawnEndlessPattern = (
 ) => {
   const viewHWidth = width / 2 / state.cameraScale;
   const viewHHeight = (height * 0.7) / state.cameraScale;
-  const viewRadius = Math.hypot(viewHWidth, viewHHeight);
+  const viewRadius = Math.sqrt(viewHWidth * viewHWidth + viewHHeight * viewHHeight);
 
   const angle = Math.random() * Math.PI * 2;
 
@@ -269,8 +269,8 @@ export const initGoalsStage = (state: GameState) => {
     for (let i = 0; i < count; i++) {
       const x = (rng() - 0.5) * 2 * areaRadius;
       const y = (rng() - 0.5) * 2 * areaRadius;
-      const dist = Math.hypot(x, y);
-      if (dist > areaRadius) {
+      const distSq = x * x + y * y;
+      if (areaRadius > 0 && distSq > areaRadius * areaRadius) {
         i--;
         continue;
       }
@@ -284,8 +284,8 @@ export const initGoalsStage = (state: GameState) => {
   }
 
   for (const o of state.objects) {
-    const d = Math.hypot(o.x, o.y);
-    if (d < 250) {
+    const dSq = o.x * o.x + o.y * o.y;
+    if (dSq < 250 * 250) {
       o.originalRadius = Math.min(o.originalRadius, 15);
       o.radius = o.originalRadius;
       o.celestialType = getCelestialType(o.originalRadius);
