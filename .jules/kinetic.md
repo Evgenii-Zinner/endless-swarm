@@ -12,3 +12,8 @@
 **UX/Gameplay Gap:** Constant screen shakes when swallowing multiple objects caused dizziness because in this dynamic arcade game the player is eating objects almost constantly.
 **Learning:** For continuous mechanics (like eating in endless swarm), avoid screen shakes and global view disruption. Instead, focus on local object transformation and interactivity (like "spaghettification" and rapid spinning) to add impact without sickening the player.
 **Prevention:** Avoid adding screen shakes to frequently occurring mechanics. Use local object-level transformations (like anisotropic scaling and extreme spinning).
+
+## 2024-05-24 - Animation Duration and Spaghettification Direction
+**UX/Gameplay Gap:** Complex local visual effects (spaghettification, spinning) were not noticeable by the player because the "falling" animation happened too fast, and the spaghettification stretched randomly rather than into the player.
+**Learning:** Animation duration (i.e. shrinking speed) is just as important as the transformation logic itself. If an object disappears too fast, intricate animations will be missed entirely. Furthermore, transformation directions matter; objects must visually stretch toward the singularity (the player) to convey the "noodle effect" intuitively.
+**Prevention:** Scaled down the shrinking rate (`obj.radius *= Math.pow(0.92, timeScale);`) slightly to allow visual effects time to play out. Calculated `angleToPlayer` during rendering to perfectly align the anisotropic scale transformation.

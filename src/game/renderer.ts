@@ -178,6 +178,15 @@ export const renderGame = (
     ctx.fillStyle = obj.color;
     ctx.save();
     ctx.translate(obj.x, obj.y);
+
+    if (obj.falling) {
+      const angleToPlayer = Math.atan2(player.y - obj.y, player.x - obj.x);
+      ctx.rotate(angleToPlayer);
+      const stretch = Math.min(6, obj.originalRadius / Math.max(0.01, obj.radius));
+      ctx.scale(stretch, 1 / Math.sqrt(stretch));
+      ctx.rotate(-angleToPlayer);
+    }
+
     ctx.rotate(obj.angle);
 
     const totalDrawEchoes = obj.falling ? 3 : 1;
@@ -197,8 +206,8 @@ export const renderGame = (
 
       if (obj.falling && echoIdx > 0) {
         const scaleVal = 1.0 - echoIdx * 0.28;
-        ctx.scale(scaleVal * 0.5, scaleVal * 1.5);
-        ctx.rotate(echoIdx * lastTime * 0.008);
+        ctx.scale(scaleVal, scaleVal);
+        ctx.rotate(echoIdx * lastTime * 0.006);
       }
 
       const rng = mulberry32(obj.seed);

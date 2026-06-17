@@ -114,8 +114,8 @@ export const updatePhysics = (
         obj.y += (dY / d) * pullSpeed;
       }
 
-      obj.spin = (Math.sign(obj.spin) || 1) * Math.min(0.5, Math.abs(obj.spin) + 0.05 * timeScale);
-      obj.radius *= Math.pow(0.85, timeScale);
+      obj.spin = (Math.sign(obj.spin) || 1) * Math.min(1.5, Math.abs(obj.spin) + 0.15 * timeScale);
+      obj.radius *= Math.pow(0.92, timeScale);
       obj.angle += obj.spin * 4 * timeScale;
 
       if (obj.radius < 0.5) {
