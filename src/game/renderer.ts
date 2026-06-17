@@ -82,6 +82,14 @@ export const renderGame = (
 
   ctx.save();
   ctx.translate(width / 2, height * 0.7);
+
+  if (state.screenShake > 0.5) {
+    ctx.translate(
+      (Math.random() - 0.5) * state.screenShake,
+      (Math.random() - 0.5) * state.screenShake
+    );
+  }
+
   ctx.scale(state.cameraScale, state.cameraScale);
   ctx.translate(-player.x, -player.y);
 

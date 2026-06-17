@@ -57,4 +57,5 @@ export type GameState = {
   zoneRadius: number;
   rebirthCount: number;
   showRebirthFlash: number;
+  screenShake: number;
 };

@@ -122,6 +122,13 @@ export const updatePhysics = (
         const currentArea = player.targetRadius ** 2;
         const objArea = obj.originalRadius ** 2;
         player.targetRadius = Math.sqrt(currentArea + objArea * 0.15);
+
+        // Juice: screen shake based on original size of the object
+        const shakeIntensity = obj.originalRadius * state.cameraScale * 0.5;
+        state.screenShake = Math.min(30, state.screenShake + shakeIntensity);
+
+        // Juice: gulp!
+        player.radius += obj.originalRadius * 0.1;
       }
     } else {
       obj.angle += obj.spin * timeScale;
@@ -190,5 +197,10 @@ export const updateTimers = (state: GameState, timeScale: number) => {
   }
   if (state.levelUpTextTimer > 0) {
     state.levelUpTextTimer -= timeScale;
+  }
+  if (state.screenShake > 0.1) {
+    state.screenShake *= Math.pow(0.8, timeScale);
+  } else {
+    state.screenShake = 0;
   }
 };

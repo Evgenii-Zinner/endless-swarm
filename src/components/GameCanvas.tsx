@@ -37,6 +37,7 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
     zoneRadius: 500,
     rebirthCount: 0,
     showRebirthFlash: 0,
+    screenShake: 0,
   });
 
   useEffect(() => {
