@@ -8,7 +8,7 @@
 **Learning:** Visual clarity in mechanics ("affordances") reduces player cognitive load. Color alone is sometimes insufficient. Opacity changes act as strong indicators.
 **Prevention:** Implemented a visual affordance where non-edible objects are drawn "ghosted" (lowered opacity to 40%).
 
-## 2024-05-24 - Screen Shake Juice and "Gulp" Affordance
-**UX/Gameplay Gap:** When the black hole devours objects, there was minimal visceral feedback. The removal of the object felt static, lacking the impact expected from an arcade game.
-**Learning:** Screen space considerations are crucial when adding juice to scaling games. Adding a flat radius bump or screen shake value without accounting for camera zoom creates wildly inconsistent game feel across different tiers. Also, slightly increasing the player's radius when consuming creates an organic "gulp" effect that communicates the action viscerally.
-**Prevention:** Scaled camera shake intensity relative to the original size of the object multiplied by the current `cameraScale`. Also decayed the screen shake exponentially over delta time using `timeScale` to preserve frame-rate independence.
+## 2024-05-24 - Screen Shake Causes Dizziness
+**UX/Gameplay Gap:** Constant screen shakes when swallowing multiple objects caused dizziness because in this dynamic arcade game the player is eating objects almost constantly.
+**Learning:** For continuous mechanics (like eating in endless swarm), avoid screen shakes and global view disruption. Instead, focus on local object transformation and interactivity (like "spaghettification" and rapid spinning) to add impact without sickening the player.
+**Prevention:** Avoid adding screen shakes to frequently occurring mechanics. Use local object-level transformations (like anisotropic scaling and extreme spinning).

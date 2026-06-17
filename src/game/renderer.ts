@@ -82,14 +82,6 @@ export const renderGame = (
 
   ctx.save();
   ctx.translate(width / 2, height * 0.7);
-
-  if (state.screenShake > 0.5) {
-    ctx.translate(
-      (Math.random() - 0.5) * state.screenShake,
-      (Math.random() - 0.5) * state.screenShake
-    );
-  }
-
   ctx.scale(state.cameraScale, state.cameraScale);
   ctx.translate(-player.x, -player.y);
 
@@ -205,8 +197,8 @@ export const renderGame = (
 
       if (obj.falling && echoIdx > 0) {
         const scaleVal = 1.0 - echoIdx * 0.28;
-        ctx.scale(scaleVal, scaleVal);
-        ctx.rotate(echoIdx * lastTime * 0.006);
+        ctx.scale(scaleVal * 0.5, scaleVal * 1.5);
+        ctx.rotate(echoIdx * lastTime * 0.008);
       }
 
       const rng = mulberry32(obj.seed);
