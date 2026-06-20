@@ -3,13 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GameCanvas from "./components/GameCanvas";
 
 export default function App() {
   const [gameState, setGameState] = useState<"menu" | "endless" | "goals">(
     "menu",
   );
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && gameState !== "menu") {
+        setGameState("menu");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [gameState]);
 
   if (gameState === "menu") {
     return (
@@ -52,9 +62,10 @@ export default function App() {
       <button
         onClick={() => setGameState("menu")}
         aria-label="Return to menu"
-        className="absolute top-8 left-8 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] rounded text-sm font-bold tracking-widest transition-colors z-20"
+        className="absolute top-8 left-8 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] rounded text-sm font-bold tracking-widest transition-colors z-20 flex items-center"
       >
-        <span aria-hidden="true">&#8592;</span> MENU
+        <span aria-hidden="true" className="mr-1">&#8592;</span> MENU
+        <span className="ml-2 text-[10px] bg-white/10 px-1.5 py-0.5 rounded border border-white/20 font-sans tracking-normal opacity-70">ESC</span>
       </button>
     </main>
   );
