@@ -132,18 +132,20 @@ export const updatePhysics = (
   // Cleanup eaten and too-far objects
   const viewHWidth = width / 2 / state.cameraScale;
   const viewHHeight = (height * 0.7) / state.cameraScale;
-  const viewRadius = Math.sqrt(
-    viewHWidth * viewHWidth + viewHHeight * viewHHeight,
+  const viewRadiusSq = viewHWidth * viewHWidth + viewHHeight * viewHHeight;
+
+  // Hoist invariants calculated 250+ times per frame
+  const playerCumulativeLevel = Math.floor(
+    Math.log2(Math.max(1, player.targetRadius / 20)),
   );
+  const endlessMinRadius = player.radius * 0.012;
+  const cullThresholdSq = viewRadiusSq * 16; // (viewRadius * 4)^2 = viewRadiusSq * 16
 
   state.objects = objects.filter((obj) => {
     if (obj.eaten) return false;
 
     // Dynamic Garbage Collector: Dispose of anything 5+ tiers behind the player
     // to prevent microscopic asteroid noise and keep coordinates pristine.
-    const playerCumulativeLevel = Math.floor(
-      Math.log2(Math.max(1, player.targetRadius / 20)),
-    );
     const objCumulativeLevel = Math.floor(
       Math.log2(Math.max(1, obj.originalRadius / 20)),
     );
@@ -152,14 +154,13 @@ export const updatePhysics = (
     }
 
     if (state.mode === "endless") {
-      if (obj.originalRadius < player.radius * 0.012) {
+      if (obj.originalRadius < endlessMinRadius) {
         return false;
       }
       const dx = obj.x - player.x;
       const dy = obj.y - player.y;
       const dSq = dx * dx + dy * dy;
-      const threshold = viewRadius * 4;
-      return dSq < threshold * threshold;
+      return dSq < cullThresholdSq;
     }
     return true;
   });
