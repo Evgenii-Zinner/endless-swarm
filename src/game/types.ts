@@ -25,6 +25,10 @@ export type GameObject = {
 };
 
 export type GameState = {
+  camera: {
+    x: number;
+    y: number;
+  };
   player: {
     x: number;
     y: number;

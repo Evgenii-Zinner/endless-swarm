@@ -43,10 +43,10 @@ export const drawGrid = (
     const dotSize = 2 / cameraScale;
 
     const hw = w / 2 / cameraScale;
-    const startX = player.x - hw;
-    const endX = player.x + hw;
-    const startY = player.y - (h * 0.7) / cameraScale;
-    const endY = player.y + (h * 0.3) / cameraScale;
+    const startX = state.camera.x - hw;
+    const endX = state.camera.x + hw;
+    const startY = state.camera.y - (h * 0.7) / cameraScale;
+    const endY = state.camera.y + (h * 0.3) / cameraScale;
 
     const offX = ((startX % spacing) + spacing) % spacing;
     const offY = ((startY % spacing) + spacing) % spacing;
@@ -83,7 +83,7 @@ export const renderGame = (
   ctx.save();
   ctx.translate(width / 2, height * 0.7);
   ctx.scale(state.cameraScale, state.cameraScale);
-  ctx.translate(-player.x, -player.y);
+  ctx.translate(-state.camera.x, -state.camera.y);
 
   drawGrid(ctx, state, width, height);
 
@@ -159,10 +159,10 @@ export const renderGame = (
   const viewYOffsetTop = (height * 0.7) / state.cameraScale;
   const viewYOffsetBottom = (height * 0.3) / state.cameraScale;
 
-  const visibleLeft = player.x - viewHalfWidth;
-  const visibleRight = player.x + viewHalfWidth;
-  const visibleTop = player.y - viewYOffsetTop;
-  const visibleBottom = player.y + viewYOffsetBottom;
+  const visibleLeft = state.camera.x - viewHalfWidth;
+  const visibleRight = state.camera.x + viewHalfWidth;
+  const visibleTop = state.camera.y - viewYOffsetTop;
+  const visibleBottom = state.camera.y + viewYOffsetBottom;
 
   for (const obj of objects) {
     const objDrawRadius = Math.max(0.1, obj.radius);
