@@ -8,7 +8,7 @@ export const updatePhysics = (
   width: number,
   height: number,
 ) => {
-  const { player, objects, joystick, keys } = state;
+  const { player, camera, objects, joystick, keys } = state;
 
   const level = Math.floor(Math.log2(Math.max(1, player.targetRadius / 20)));
 
@@ -82,6 +82,10 @@ export const updatePhysics = (
     player.x += player.vx * timeScale;
     player.y += player.vy * timeScale;
   }
+
+  // Smooth camera follow
+  camera.x += (player.x - camera.x) * (1 - Math.pow(0.85, timeScale));
+  camera.y += (player.y - camera.y) * (1 - Math.pow(0.85, timeScale));
 
   // Physics & Interactions
   for (let i = objects.length - 1; i >= 0; i--) {

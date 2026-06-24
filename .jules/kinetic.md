@@ -17,3 +17,8 @@
 **UX/Gameplay Gap:** Complex local visual effects (spaghettification, spinning) were not noticeable by the player because the "falling" animation happened too fast, and the spaghettification stretched randomly rather than into the player.
 **Learning:** Animation duration (i.e. shrinking speed) is just as important as the transformation logic itself. If an object disappears too fast, intricate animations will be missed entirely. Furthermore, transformation directions matter; objects must visually stretch toward the singularity (the player) to convey the "noodle effect" intuitively.
 **Prevention:** Scaled down the shrinking rate (`obj.radius *= Math.pow(0.92, timeScale);`) slightly to allow visual effects time to play out. Calculated `angleToPlayer` during rendering to perfectly align the anisotropic scale transformation.
+
+## 2024-05-18 - Camera Smoothing
+**UX/Gameplay Gap:** Movement of the player creates instant camera snapping, causing motion sickness and jarring visuals.
+**Learning:** The canvas was directly translating to `-player.x, -player.y`. This instantly reflects the physics object movement.
+**Prevention:** Created a separate `camera` coordinate system that lerps towards the `player` position using delta-time safe exponential decay (`Math.pow(0.85, timeScale)`).

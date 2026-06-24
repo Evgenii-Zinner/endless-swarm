@@ -13,6 +13,7 @@ export default function GameCanvas({ mode }: { mode: "endless" | "goals" }) {
   const eraDisplayRef = useRef<HTMLSpanElement>(null);
 
   const stateRef = useRef<GameState>({
+    camera: { x: 0, y: 0 },
     player: { x: 0, y: 0, vx: 0, vy: 0, radius: 20, targetRadius: 20 },
     cameraScale: 3,
     targetCameraScale: 3,
