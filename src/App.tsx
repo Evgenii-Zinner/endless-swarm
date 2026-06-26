@@ -29,6 +29,7 @@ export default function App() {
         </h1>
         <div className="flex flex-col gap-6 w-full max-w-xs">
           <button
+            autoFocus
             onClick={() => setGameState("endless")}
             className="w-full py-4 bg-slate-800 hover:bg-slate-700 text-xl font-bold tracking-widest rounded-xl border-2 border-slate-700 hover:border-sky-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
           >
@@ -45,11 +46,11 @@ export default function App() {
         <div className="mt-8 flex flex-col items-center gap-3 text-white/50 text-sm font-medium tracking-wide">
           <p>CONTROLS</p>
           <div className="flex gap-4 items-center">
-            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">WASD</span>
+            <kbd className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20 font-sans">WASD</kbd>
             <span>or</span>
-            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">ARROWS</span>
+            <kbd className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20 font-sans">ARROWS</kbd>
             <span>or</span>
-            <span className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20">DRAG</span>
+            <kbd className="bg-white/10 px-2 py-1 rounded text-white/80 border border-white/20 font-sans">DRAG</kbd>
           </div>
         </div>
       </div>
@@ -65,7 +66,7 @@ export default function App() {
         className="absolute top-8 left-8 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] rounded text-sm font-bold tracking-widest transition-colors z-20 flex items-center"
       >
         <span aria-hidden="true" className="mr-1">&#8592;</span> MENU
-        <span className="ml-2 text-[10px] bg-white/10 px-1.5 py-0.5 rounded border border-white/20 font-sans tracking-normal opacity-70">ESC</span>
+        <kbd className="ml-2 text-[10px] bg-white/10 px-1.5 py-0.5 rounded border border-white/20 font-sans tracking-normal opacity-70">ESC</kbd>
       </button>
     </main>
   );
