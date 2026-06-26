@@ -102,7 +102,14 @@ export const renderGame = (
   // Draw Player / Black Hole
   ctx.save();
   const pr = Math.max(0.1, player.radius);
+
+  // Implement a slow, hypnotic 6-second breathing cycle
+  const breathInterval = 6000;
+  const breathFactor = Math.sin((lastTime % breathInterval) / breathInterval * Math.PI * 2);
+  const breathScale = 1.0 + (breathFactor * 0.03); // Subtle 3% fluctuation
+
   ctx.translate(player.x, player.y);
+  ctx.scale(breathScale, breathScale);
 
   const accGrad = ctx.createRadialGradient(0, 0, pr * 0.8, 0, 0, pr * 1.8);
   accGrad.addColorStop(0, "rgba(56, 189, 248, 0.2)");

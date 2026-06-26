@@ -1,0 +1,4 @@
+## 2024-03-22 - Hypnotic Breathing and Organic Camera Drift
+**Tension Source:** The abrupt freeze when winning a goals stage and the somewhat rigid camera easing (0.85 retention) caused a jarring stop that disrupted the player's flow state and zen relaxation.
+**Zen Learning:** Replacing rigid constraints (like zeroing velocity directly) with natural friction drift, and utilizing a slow, 6-second sinusoidal breathing curve for the player's scale, directly synchronizes the game's mechanics with biological resting heart rates.
+**Soothing Pattern:** When implementing win states or idle states, always allow objects to drift to a natural halt rather than freezing them instantly. Use sinusoidal easing based on long intervals (e.g., 6000ms) for idle animations to enforce a calm, meditative pace.
