@@ -75,17 +75,13 @@ export const updatePhysics = (
     player.vy = (player.vy / currentSpeed) * maxSpeedWorld;
   }
 
-  if (state.goalsWon) {
-    player.vx = 0;
-    player.vy = 0;
-  } else {
-    player.x += player.vx * timeScale;
-    player.y += player.vy * timeScale;
-  }
+  // Instead of a jarring stop during goalsWon, let the player drift to a calm stop
+  player.x += player.vx * timeScale;
+  player.y += player.vy * timeScale;
 
-  // Smooth camera follow
-  camera.x += (player.x - camera.x) * (1 - Math.pow(0.85, timeScale));
-  camera.y += (player.y - camera.y) * (1 - Math.pow(0.85, timeScale));
+  // Ultra-smooth, slow-dampening camera easing for a hypnotic, organic feel
+  camera.x += (player.x - camera.x) * (1 - Math.pow(0.96, timeScale));
+  camera.y += (player.y - camera.y) * (1 - Math.pow(0.96, timeScale));
 
   // Physics & Interactions
   for (let i = objects.length - 1; i >= 0; i--) {
