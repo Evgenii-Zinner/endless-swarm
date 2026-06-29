@@ -88,11 +88,14 @@ export const updatePhysics = (
   camera.y += (player.y - camera.y) * (1 - Math.pow(0.85, timeScale));
 
   // Physics & Interactions
+  const radiusEasing = 1 - Math.pow(0.9, timeScale);
+  const fallingRadiusShrink = Math.pow(0.92, timeScale);
+
   for (let i = objects.length - 1; i >= 0; i--) {
     const obj = objects[i];
 
     if (!obj.falling) {
-      obj.radius += (obj.originalRadius - obj.radius) * (1 - Math.pow(0.9, timeScale));
+      obj.radius += (obj.originalRadius - obj.radius) * radiusEasing;
       const dx = obj.x - player.x;
       const dy = obj.y - player.y;
       const dSq = dx * dx + dy * dy;
@@ -119,7 +122,7 @@ export const updatePhysics = (
       }
 
       obj.spin = (Math.sign(obj.spin) || 1) * Math.min(1.5, Math.abs(obj.spin) + 0.15 * timeScale);
-      obj.radius *= Math.pow(0.92, timeScale);
+      obj.radius *= fallingRadiusShrink;
       obj.angle += obj.spin * 4 * timeScale;
 
       if (obj.radius < 0.5) {
@@ -145,15 +148,18 @@ export const updatePhysics = (
   const endlessMinRadius = player.radius * 0.012;
   const cullThresholdSq = viewRadiusSq * 16; // (viewRadius * 4)^2 = viewRadiusSq * 16
 
+  // Instead of calculating Math.log2 per object, pre-calculate the minimum original radius
+  // (tierLevel < playerCumulativeLevel - 5) -> Math.floor(Math.log2(Math.max(1, R / 20))) < L
+  // -> R / 20 < 2^L -> R < 20 * 2^L
+  const minLevelBound = playerCumulativeLevel - 5;
+  const minTierRadius = minLevelBound > 0 ? 20 * Math.pow(2, minLevelBound) : 0;
+
   state.objects = objects.filter((obj) => {
     if (obj.eaten) return false;
 
     // Dynamic Garbage Collector: Dispose of anything 5+ tiers behind the player
     // to prevent microscopic asteroid noise and keep coordinates pristine.
-    const objCumulativeLevel = Math.floor(
-      Math.log2(Math.max(1, obj.originalRadius / 20)),
-    );
-    if (objCumulativeLevel < playerCumulativeLevel - 5) {
+    if (obj.originalRadius < minTierRadius) {
       return false;
     }
 
