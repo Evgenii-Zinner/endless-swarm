@@ -4,10 +4,13 @@
 
 # 🌀 Endless Swarm
 
+> [!NOTE]
+> **Project Archived & Completed**: This project was a fun experiment built with Google AI Studio and further refined with Jules. The experiment is now complete and this repository is officially archived.
+
 An endless hole.io-style game built with React, TypeScript, Tailwind CSS, and HTML5 Canvas. Swallow smaller objects, grow your swarming black hole, and consume procedurally generated objects infinitely.
 
 > [!IMPORTANT]
-> **AI Generation Credit:** This project is fully AI-generated using Google AI Studio. All core game loop mechanics, rendering, structure, and configuration were created through agentic prompting in AI Studio. **Jules will be developing this project further.**
+> **AI Generation Credit:** This project was originally generated using Google AI Studio and iterated with Jules. All core game loop mechanics, rendering, structure, and configuration were created through agentic prompting.
 
 ---
 
